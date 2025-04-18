@@ -119,13 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen p-6">
     <div class="max-w-4xl mx-auto animate__animated animate__fadeIn">
         <div class="bg-white rounded-xl shadow-xl overflow-hidden">
-            <!-- Quiz Header -->
+          
             <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 text-white">
                 <h1 class="text-3xl font-bold"><?php echo ucfirst($subject); ?> Quiz</h1>
                 <p class="opacity-90">Test your knowledge with these 10 questions</p>
             </div>
             
-            <!-- Quiz Form -->
+           
             <form method="post" class="p-6 md:p-8">
                 <?php foreach ($quiz as $index => $q): ?>
                     <div class="mb-8 p-5 bg-gray-50 rounded-lg hover:bg-blue-50 transition duration-200">
