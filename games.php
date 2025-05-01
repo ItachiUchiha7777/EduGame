@@ -48,6 +48,7 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 <button class="filter-btn px-4 py-2 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-100" data-filter="grammar">Grammar</button>
                 <button class="filter-btn px-4 py-2 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-100" data-filter="spanish">Spanish</button>
                 <button class="filter-btn px-4 py-2 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-100" data-filter="history">History</button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-blue-500 text-blue-600 hover:bg-blue-100" data-filter="puzzle">Puzzles</button>
             </div>
             
             <div class="relative w-full max-w-md mx-auto mb-8">
@@ -95,7 +96,8 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 xp: 50,
                 isNew: true,
                 rating: 4.5,
-                dateAdded: "2023-10-15"
+                dateAdded: "2023-10-15",
+                type: "quiz"
             },
             {
                 id: 2,
@@ -106,7 +108,8 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 xp: 30,
                 isPopular: true,
                 rating: 4.2,
-                dateAdded: "2023-11-20"
+                dateAdded: "2023-11-20",
+                type: "quiz"
             },
             {
                 id: 3,
@@ -116,7 +119,8 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 image: "https://img.freepik.com/free-vector/english-grammar-book-concept-illustration_114360-7342.jpg",
                 xp: 25,
                 rating: 3.8,
-                dateAdded: "2023-11-05"
+                dateAdded: "2023-11-05",
+                type: "quiz"
             },
             {
                 id: 4,
@@ -127,7 +131,8 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 xp: 35,
                 isNew: true,
                 rating: 4.2,
-                dateAdded: "2023-11-10"
+                dateAdded: "2023-11-10",
+                type: "quiz"
             },
             {
                 id: 5,
@@ -137,7 +142,8 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 image: "https://img.freepik.com/free-vector/history-concept-illustration_114360-1271.jpg",
                 xp: 20,
                 rating: 3.5,
-                dateAdded: "2023-08-15"
+                dateAdded: "2023-08-15",
+                type: "quiz"
             },
             {
                 id: 6,
@@ -147,7 +153,8 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 image: "https://img.freepik.com/free-vector/math-teacher-concept-illustration_114360-7400.jpg",
                 xp: 40,
                 rating: 4.7,
-                dateAdded: "2023-07-22"
+                dateAdded: "2023-07-22",
+                type: "quiz"
             },
             {
                 id: 7,
@@ -158,7 +165,8 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 xp: 25,
                 isNew: true,
                 rating: 4.0,
-                dateAdded: "2023-11-25"
+                dateAdded: "2023-11-25",
+                type: "quiz"
             },
             {
                 id: 8,
@@ -168,7 +176,55 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 image: "https://img.freepik.com/free-vector/hand-drawn-spanish-symbols-illustration_23-2149234999.jpg",
                 xp: 35,
                 rating: 3.9,
-                dateAdded: "2023-10-05"
+                dateAdded: "2023-10-05",
+                type: "quiz"
+            },
+            // Word Search Puzzles
+            {
+                id: 9,
+                title: "Math Word Search",
+                subject: "math",
+                description: "Find hidden math terms in this challenging puzzle",
+                image: "https://img.freepik.com/free-vector/math-teacher-concept-illustration_114360-7400.jpg",
+                xp: 30,
+                isNew: true,
+                rating: 4.3,
+                dateAdded: "2023-12-01",
+                type: "puzzle"
+            },
+            {
+                id: 10,
+                title: "Grammar Word Search",
+                subject: "grammar",
+                description: "Search for grammar terms in this word puzzle",
+                image: "https://img.freepik.com/free-vector/english-grammar-book-concept-illustration_114360-7342.jpg",
+                xp: 25,
+                rating: 4.1,
+                dateAdded: "2023-11-28",
+                type: "puzzle"
+            },
+            {
+                id: 11,
+                title: "Spanish Word Search",
+                subject: "spanish",
+                description: "Find Spanish vocabulary words in the grid",
+                image: "https://img.freepik.com/free-vector/hand-drawn-spanish-symbols-illustration_23-2149234999.jpg",
+                xp: 35,
+                isPopular: true,
+                rating: 4.5,
+                dateAdded: "2023-11-15",
+                type: "puzzle"
+            },
+            {
+                id: 12,
+                title: "History Word Search",
+                subject: "history",
+                description: "Discover historical terms in this educational puzzle",
+                image: "https://img.freepik.com/free-vector/history-concept-illustration_114360-1271.jpg",
+                xp: 20,
+                rating: 3.8,
+                dateAdded: "2023-11-10",
+                type: "puzzle"
             }
         ];
 
@@ -199,9 +255,13 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 
         function filterGames(filter) {
             let filteredGames = [...games];
-            if (filter !== 'all') {
+            
+            if (filter === 'puzzle') {
+                filteredGames = filteredGames.filter(game => game.type === 'puzzle');
+            } else if (filter !== 'all') {
                 filteredGames = filteredGames.filter(game => game.subject === filter);
             }
+            
             const searchTerm = searchInput.value.toLowerCase();
             if (searchTerm) {
                 filteredGames = filteredGames.filter(game => 
@@ -209,6 +269,7 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                     game.description.toLowerCase().includes(searchTerm)
                 );
             }
+            
             const sortOption = sortSelect.value;
             switch (sortOption) {
                 case 'newest':
@@ -224,6 +285,7 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                 default:
                     filteredGames.sort((a, b) => b.rating - a.rating);
             }
+            
             renderGames(filteredGames);
             noResults.classList.toggle('hidden', filteredGames.length > 0);
         }
@@ -233,6 +295,12 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
             gamesToRender.forEach(game => {
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg';
+                
+                // Determine the play link based on game type
+                const playLink = game.type === 'puzzle' 
+                    ? `wordsearch.php?subject=${game.subject}&id=${game.id}`
+                    : `games/quiz.php?subject=${game.subject}&game=${game.id}`;
+                
                 gameCard.innerHTML = `
                     <div class="relative">
                         <img src="${game.image}" alt="${game.title}" class="w-full h-40 object-cover">
@@ -251,7 +319,7 @@ $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
                                 ${renderStars(game.rating)}
                                 <span class="text-gray-500 ml-1">(${game.rating.toFixed(1)})</span>
                             </div>
-                            <a href="games/quiz.php?subject=${game.subject}&game=${game.id}" 
+                            <a href="${playLink}" 
                                  class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors">
                                 Play
                             </a>
